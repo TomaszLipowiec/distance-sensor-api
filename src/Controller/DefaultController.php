@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Distance;
 
 class DefaultController extends AbstractController{
-    #[Route('/', name: 'distance-sensor-list', methods: ['GET'])]
+    #[Route('/distance-sensor', name: 'distance-sensor-list', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response{
 
         $distances = $entityManager->getRepository(Distance::class)->findAll();
