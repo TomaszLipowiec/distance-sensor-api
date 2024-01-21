@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use DateTime;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,18 +18,22 @@ class DefaultController extends AbstractController{
         return $this->render('distance/list.html.twig', ['distances' => $distances]);
     }
 
-    #[Route('/api/save/{dist}', name: 'distance-sensor-save', methods: ['GET'])]
-    public function apiSave(Request $request, EntityManagerInterface $entityManager):  Response{
-        $dist = $request->get('dist');
+    #[Route('/api/save/{dist}/{key}', name: 'distance-sensor-save', methods: ['GET'])]
+    public function apiSave(EntityManagerInterface $entityManager, int $dist, string $key):  Response{
 
-        $distance = new Distance;
+        if($key == "4a99c6e3-accc-465b-90bc-e6f3f3a892e8"){
+            $distance = new Distance;
 
-        $distance->setCm($dist);
-        $distance->setDate(new DateTime('now'));
+            $distance->setCm($dist);
+            $distance->setDate(new DateTime('now'));
 
-        $entityManager->persist($distance);
-        $entityManager->flush();
+            $entityManager->persist($distance);
+            $entityManager->flush();
 
-        return new Response('200');
+            return new Response('200');
+        } else {
+            return new Response('503');
+        }
+
     }
 }
