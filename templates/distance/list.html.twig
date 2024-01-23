@@ -113,7 +113,7 @@
                     {% for distance in distances %}
                         <li>
                             <div class="list-element"><p>{{ distance.id }}</p></div>
-                            <div class="list-element"><p>{{ distance.date | date('Y-m-d h-m-s') }}</p></div>
+                            <div class="list-element"><p>{{ distance.date | date('Y-m-d H:i:s') }}</p></div>
                             <div class="list-element"><p>{{ distance.cm }}</p></div>
                         </li>
                     {% endfor %}
